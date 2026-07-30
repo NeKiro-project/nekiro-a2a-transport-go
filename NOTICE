@@ -1,0 +1,9 @@
+nekiro-a2a-transport-go
+Copyright 2026 NeKiro project contributors
+
+The initial HTTP/JSON-RPC/SSE transport implementation was extracted from
+github.com/NeKiro-project/NeKiro and adapted into a standalone package.
+
+This product includes software developed by the A2A Project and its
+contributors through github.com/a2aproject/a2a-go. See the dependency's
+license and notices for its terms and attribution.
