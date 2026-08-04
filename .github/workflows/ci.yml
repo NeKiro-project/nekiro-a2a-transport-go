@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches:
@@ -51,6 +52,9 @@ jobs:
       - name: Vet
         run: go vet ./...
 
+      - name: Check patch whitespace
+        run: git diff --check
+
   integration:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -76,7 +80,19 @@ jobs:
 
       - name: Verify license files
         shell: bash
-        run: test -s LICENSE && test -s NOTICE
+        run: |
+          test -s LICENSE
+          test -s NOTICE
+          test -s README.md
+          test -s .github/pull_request_template.md
+
+      - name: Verify immutable GitHub Actions
+        shell: bash
+        run: |
+          if git grep -nE '^[[:space:]]*uses:' -- .github/workflows | grep -Ev '@[0-9a-f]{40}([[:space:]]|$)'; then
+            echo "GitHub Action is not pinned to a full commit SHA"
+            exit 1
+          fi
 
       - name: Scan tracked source for credential material
         shell: bash
