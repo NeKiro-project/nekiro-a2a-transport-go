@@ -11,3 +11,6 @@ Thumbs.db
 *.swp
 .vscode/
 .idea/
+.repowiki-site/
+site/
+scripts/__pycache__/

@@ -29,6 +29,12 @@ an Agent Runtime.
 - Go A2A library: `github.com/a2aproject/a2a-go v0.3.15`
 - Go: `1.26.0`
 
+## RepoWiki
+
+The [NeKiro A2A Transport RepoWiki](https://nekiro-project.github.io/nekiro-a2a-transport-go/)
+publishes the transport documentation in English and Chinese with MkDocs Material.
+The source README remains canonical.
+
 ## Development checks
 
 ```text
