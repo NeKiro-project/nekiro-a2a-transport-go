@@ -1,8 +1,17 @@
 # Go build and test artifacts
+bin/
+coverage/
+coverage.out
 *.exe
 *.test
 *.out
+*.prof
 vendor/
+
+# Local configuration and logs
+.env
+.env.*
+*.log
 
 # Editors and operating systems
 .DS_Store
@@ -14,3 +23,6 @@ Thumbs.db
 .repowiki-site/
 site/
 scripts/__pycache__/
+
+# Linked worktrees
+.worktrees/

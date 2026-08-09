@@ -34,6 +34,17 @@ an Agent Runtime.
 The [NeKiro A2A Transport RepoWiki](https://nekiro-project.github.io/nekiro-a2a-transport-go/)
 publishes the transport documentation in English and Chinese with MkDocs Material.
 The source README remains canonical.
+## Install and use
+
+Use an immutable reviewed release:
+
+```text
+go get github.com/NeKiro-project/nekiro-a2a-transport-go@v0.1.1
+```
+
+Callers must provide an explicit endpoint and positive response/event limits.
+Authentication and platform context are supplied through caller-owned official
+A2A interceptors; this package never discovers endpoints or invents policy.
 
 ## Development checks
 
@@ -42,8 +53,28 @@ go test ./...
 go test -race ./...
 go vet ./...
 go mod tidy
+go mod verify
 git diff --check
 ```
+
+Verification is successful only when:
+
+- all unit tests pass without skipped protocol assertions;
+- `TestClientInteroperatesWithOfficialA2AServer` passes;
+- the race detector and `go vet` exit with code `0`;
+- `go mod tidy` leaves `go.mod` and `go.sum` unchanged;
+- both malformed input and upstream failure tests return the documented typed
+  failure rather than a partial or fallback result.
+
+CI separates reusable transport quality from official A2A server
+interoperability so consumers can see which boundary failed.
+
+## Pull requests
+
+Transport changes must identify the affected operation (`message/send`,
+`message/stream`, or `tasks/cancel`), framing or limit semantics, failure kind,
+and downstream Core adapter verification. Public API changes require an
+explicit compatibility statement and a new immutable release when merged.
 
 Fallback delta: removed 0, retained 1, added 0, net 0. The retained behavior
 is Go's documented nil `http.Client.Transport` policy. Added fallback evidence:
